@@ -1,0 +1,101 @@
+.selectWrapper {
+  position: relative;
+  border-radius: 20px;
+  flex: 1 1 auto;
+  @media (min-width: 768px) {
+    max-width: percentage(265 / 1120);
+  }
+
+  .arrow {
+    position: absolute;
+    right: 15px;
+    top: 27%;
+    transition: transform 0.2s ease-in-out;
+    .arrowSvg * {
+      fill: var(--color-bg-active);
+    }
+  }
+
+  .cross {
+    position: absolute;
+    right: 35px;
+    top: 27%;
+    display: none;
+    .crossSvg * {
+      fill: var(--color-bg-active);
+    }
+  }
+
+  .placeholder {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 45px;
+    padding: 5px 5px 5px 15px;
+    cursor: pointer;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 15.23px;
+    color: var(--color-text);
+    background: var(--color-bg);
+    width: 100%;
+  }
+
+  &[data-selected="true"] .cross {
+    display: block;
+  }
+
+  &[data-is-active="true"] .arrow {
+    transform: rotate(180deg);
+  }
+
+  &[data-is-active="true"] .placeholder {
+    border: 1px solid var(--color-text);
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
+  }
+
+  &:not([data-is-active="true"])
+    .placeholder:not([data-status="invalid"]):hover {
+    border: 1px solid var(--color-text);
+  }
+
+  .rangeBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-text);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    height: 100px;
+    padding: 22px 15px 20px 20px;
+    @media (min-width: 768px) {
+      flex-direction: column;
+      height: 160px;
+    }
+    @media (min-width: 1366px) {
+      flex-direction: row;
+      height: 100px;
+    }
+    .rangeInp {
+      width: 110px;
+      height: 45px;
+      border-radius: 8px;
+      background-color: var(--color-bg-inp-r);
+      text-align: center;
+      @media (min-width: 1366px) {
+        width: 95px;
+      }
+    }
+    .rangeDef {
+      border: 1px solid var(--color-text);
+      width: 12px;
+    }
+  }
+}

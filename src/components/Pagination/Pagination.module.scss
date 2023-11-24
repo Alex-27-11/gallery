@@ -1,0 +1,73 @@
+.pagination {
+  align-self: start;
+  margin: 30px 0px 0px 0px;
+  @media (min-width: 768px) {
+    margin: 35px 0px 0px 0px;
+  }
+  @media (min-width: 1024px) {
+    margin: 40px 0px 0px 0px;
+  }
+
+  .inner {
+    display: flex;
+  }
+  .button {
+    width: 41px;
+    height: 41px;
+    border: 1px solid var(--color-text);
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .arr * {
+      fill: var(--color-text);
+    }
+    &:hover {
+      background: var(--color-bg-hover);
+    }
+  }
+  .buttonActive {
+    width: 41px;
+    height: 41px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    background: var(--color-bg-active);
+    color: var(--color-text-active);
+  }
+  button:first-child {
+    border-radius: 8px 0 0 8px;
+  }
+  button:last-child {
+    border-radius: 0 8px 8px 0;
+  }
+  .arrPas {
+    position: relative;
+    width: 41px;
+    height: 41px;
+    border: 1px solid var(--color-text);
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.2;
+    cursor: auto;
+    .arr * {
+      fill: var(--color-text);
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 41px;
+      height: 41px;
+    }
+  }
+}

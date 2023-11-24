@@ -1,0 +1,16 @@
+.navigation {
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+.load,
+.err {
+  margin: 0 auto;
+  text-align: center;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 30px;
+}

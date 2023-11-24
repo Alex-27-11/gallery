@@ -1,0 +1,77 @@
+.main {
+  margin: 0px 0px 20px 0px;
+  .container {
+    .navigation {
+      margin: 0px 0px 45px 0px;
+    }
+    .inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+      }
+      @media (min-width: 1024px) {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .card {
+        height: 205px;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        color: rgba(0, 0, 0, 1);
+        @media (min-width: 768px) {
+          height: 249px;
+        }
+        @media (min-width: 1024px) {
+          height: 230px;
+        }
+        @media (min-width: 1366px) {
+          height: 275px;
+        }
+      }
+      .cardImg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .cardBoard {
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.75);
+        height: 105px;
+        padding: 5px 0px 0px 10px;
+        cursor: pointer;
+        transform: translate(0px, 79px);
+        transition: all 1s ease;
+        &:hover {
+          transform: translate(0px, 0px);
+          transition: all 1s ease;
+        }
+      }
+      .cardDis {
+        height: 96px;
+        line-height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .cardTitle {
+        font-weight: 700;
+        font-size: 18px;
+      }
+      .cardBold {
+        font-weight: 500;
+        font-size: 13px;
+        margin-right: 8px;
+      }
+      .cardLight {
+        font-weight: 300;
+        font-size: 13px;
+      }
+    }
+  }
+}

@@ -1,27 +1,32 @@
-// в этом файле 2 элемента
-// насколько я понял вы хотели, что бы я создал общий компонент для NavAuthor and NavLocation, но как передавать в это общий компонент разные типы - пока не разобрался. Думал, возможно, есть обопщения <T> для функциональных компонентов.
 import React, { useState, useEffect, useRef } from "react";
 import type { MouseEventHandler } from "react";
 
 import { ReactComponent as ArrowDown } from "../../assets/mobil/arrow-down.svg";
 import { ReactComponent as Cross } from "../../assets/mobil/cross.svg";
-import Styles from "./NavAut.module.scss";
-import { ServerResponseMin } from "../../models/models";
+import Styles from "./NavCouple.module.scss";
 import { stringLen } from "../../utils/StringLen";
 
-type OptionProps = {
-  option: ServerResponseMin;
-  onClick: (value: ServerResponseMin) => void;
+interface Option {
+  id: number;
+  name?: string;
+  location?: string;
+}
+
+type OptionProps<T extends Option> = {
+  option: T;
+  onClick: (value: T) => void;
 };
-const OptionEl: React.FC<OptionProps> = (props) => {
+
+const OptionEl = <T extends Option>(props: OptionProps<T>) => {
   const {
-    option: { name, id },
+    option: { name, location, id },
     onClick,
   } = props;
+
   const optionRef = useRef<HTMLLIElement>(null);
 
   const handleClick =
-    (clickedValue: ServerResponseMin): MouseEventHandler<HTMLLIElement> =>
+    (clickedValue: T): MouseEventHandler<HTMLLIElement> =>
     () => {
       onClick(clickedValue);
     };
@@ -31,41 +36,43 @@ const OptionEl: React.FC<OptionProps> = (props) => {
     if (!optionE) return;
     const handleEnterKeyDown = (event: KeyboardEvent) => {
       if (document.activeElement === optionE && event.key === "Enter") {
-        onClick({ name, id });
+        onClick({ name, location, id } as T);
       }
     };
 
     optionE.addEventListener("keydown", handleEnterKeyDown);
-    return () => optionE.removeEventListener("keydown", handleEnterKeyDown);
+    return () => {
+      optionE.removeEventListener("keydown", handleEnterKeyDown);
+    };
   }, [id, onClick]);
 
   return (
     <li
       className={Styles.option}
       value={id}
-      onClick={handleClick({ name, id })}
+      onClick={handleClick({ name, location, id } as T)}
       tabIndex={0}
       ref={optionRef}
     >
       {window.innerWidth > 768 && window.innerWidth < 1024
-        ? stringLen(13, name)
+        ? stringLen(12, location || name || "")
         : window.innerWidth > 1024 && window.innerWidth < 1368
-        ? stringLen(19, name)
-        : name}
+        ? stringLen(19, location || name || "")
+        : location || name || ""}
     </li>
   );
 };
-// ===================================================================================
-type SelectProps = {
-  selected: ServerResponseMin | null;
-  options: ServerResponseMin[];
+//  ====================================================
+type SelectProps<T extends Option> = {
+  selected: T | null;
+  options: T[];
   placeholder?: string;
   status?: "default" | "invalid";
-  onChange?: (selected: ServerResponseMin | null) => void;
+  onChange?: (selected: T | null) => void;
   onClose?: () => void;
 };
 
-const Select: React.FC<SelectProps> = (props) => {
+const Select = <T extends Option>(props: SelectProps<T>) => {
   const {
     options,
     placeholder,
@@ -110,7 +117,7 @@ const Select: React.FC<SelectProps> = (props) => {
     };
   }, []);
 
-  const handleOptionClick = (value: ServerResponseMin) => {
+  const handleOptionClick = (value: T) => {
     setIsOpen(false);
     onChange?.(value);
   };
@@ -144,10 +151,10 @@ const Select: React.FC<SelectProps> = (props) => {
         ref={placeholderRef}
       >
         {window.innerWidth > 768 && window.innerWidth < 1024
-          ? stringLen(12, selected?.name) || placeholder
+          ? stringLen(12, selected?.name || selected?.location) || placeholder
           : window.innerWidth > 1024 && window.innerWidth < 1368
-          ? stringLen(20, selected?.name) || placeholder
-          : stringLen(26, selected?.name) || placeholder}
+          ? stringLen(20, selected?.name || selected?.location) || placeholder
+          : stringLen(26, selected?.name || selected?.location) || placeholder}
       </div>
       {isOpen && (
         <ul className={Styles.select}>

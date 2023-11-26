@@ -18,8 +18,7 @@ import {
 import NavRange from "../NavRange/NavRange";
 import NavName from "../NavName/NavName";
 import { useDebounce } from "../../hooks/debounce";
-import NavAuthor from "../NavAuthor/NavAuthor";
-import NavLocation from "../NavLocation/NavLocation";
+import NavCouple from "../NavCouple/NavCouple";
 
 type NavProps = {
   page: number;
@@ -145,7 +144,7 @@ const Navigation: React.FC<NavProps> = ({
       <div className={cl.navigation}>
         <NavName selected={name} onChange={setName} />
         {dataAutors && (
-          <NavAuthor
+          <NavCouple
             options={dataAutors}
             selected={author}
             onChange={setAuthor}
@@ -153,7 +152,7 @@ const Navigation: React.FC<NavProps> = ({
           />
         )}
         {dataLocations && (
-          <NavLocation
+          <NavCouple
             options={dataLocations}
             selected={location}
             onChange={setLocation}
